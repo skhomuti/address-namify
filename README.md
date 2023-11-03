@@ -21,9 +21,11 @@ Generate name using Ethereum address:
 
 This tool provides constant names per address as long as dictionaries stay the same.
 
-The names are *not unique* and there might be collisions. 
+The names are *not unique* and there might be collisions. To minimize the chance of collision, each word selected differently.
+- Adjective based on the address itself
+- Noun based on the sha256(address)
 
-Possible to use it on-chain by additionally checking the given name for uniqueness 
+It's possible to use it on-chain by additionally checking the given name for uniqueness 
 and optionally adding a numeric prefix like `{name}-{i}` where `i` is the name count already used in the contract.   
 
 Words count and sentence probably might be revised.

@@ -3,6 +3,7 @@
 import json
 import random
 import argparse
+from hashlib import sha256
 
 max_range = int("0xffffffffffffffffffffffffffffffffffffffff", 16)
 
@@ -26,26 +27,25 @@ with open("corpora/data/words/nouns.json") as json_file:
     nouns = json.load(json_file).get("nouns")
 
 
-combinations_count = len(adjectives) * len(adverbs) * len(personal_nouns) * len(prepositions) * len(nouns)
+combinations_count = len(adjectives) * len(adverbs) * len(personal_nouns)
 
 
 def generate(num):
     for i in range(num):
         adj = random.randint(0, len(adjectives))
-        adv = random.randint(0, len(adverbs))
         noun = random.randint(0, len(personal_nouns))
-        prep = random.randint(0, len(prepositions))
-        noun2 = random.randint(0, len(nouns))
-        yield f"{adjectives[adj]} {adverbs[adv]} {personal_nouns[noun]} {prepositions[prep]} {nouns[noun2]}".replace(" ", "-")
+        yield f"{adjectives[adj]} {personal_nouns[noun]}".replace(" ", "-")
 
 
-def from_address(address):
-    adj = int(address / max_range * len(adjectives))
-    adv = int(address / max_range * len(adverbs))
-    noun = int(address / max_range * len(personal_nouns))
-    prep = int(address / max_range * len(prepositions))
-    noun2 = int(address / max_range * len(nouns))
-    return f"{adjectives[adj]} {adverbs[adv]} {personal_nouns[noun]} {prepositions[prep]} {nouns[noun2]}".replace(" ", "-")
+def from_address(address: str):
+    address_sha = sha256(address.encode("utf-8")).hexdigest()
+
+    sum_digits = sum([int(digit) for digit in str(int(args.address, 16))])
+    sum_sha_digits = sum([int(digit) for digit in str(int(address_sha, 16))])
+
+    adj_index = sum_digits % len(adjectives)
+    noun_index = sum_sha_digits % len(personal_nouns)
+    return f"{adjectives[adj_index]} {personal_nouns[noun_index]}".replace(" ", "-")
 
 
 if __name__ == '__main__':
@@ -58,4 +58,4 @@ if __name__ == '__main__':
         for phrase in generate(args.generate):
             print(" - " + phrase)
     if args.address:
-        print(from_address(int(args.address, 16)))
+        print(from_address(args.address))
