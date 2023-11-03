@@ -68,7 +68,7 @@ def collisions():
         print(f"{collision_count} collisions of {iterations} iterations. Chance is", collision_count / iterations * 100, "%")
         chances.append(collision_count / iterations)
 
-    print("Collision chance", sum(chances) / len(chances) * 100, "%")
+    print("Collision chance", f"{sum(chances) / len(chances) * 100:f}%")
 
 
 if __name__ == '__main__':

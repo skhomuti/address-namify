@@ -26,7 +26,7 @@ Rough calculation of the collision chance:
 
 This tool provides constant names per address as long as dictionaries stay the same.
 
-The names are *not unique* and there might be collisions. E.g. `{adj1} {adj2} {noun}` has ~0.0005% chance of collision. 
+The names are *not unique* and there might be collisions. E.g. `{adj1} {adj2} {noun}` has ~0.0005% chance of collision per 100_000 iterations. 
 
 It's possible to use it on-chain by additionally checking the given name for uniqueness 
 and optionally adding a numeric prefix like `{name}-{i}` where `i` is the name count already used in the contract.   
