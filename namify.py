@@ -41,10 +41,12 @@ def from_address(address: str):
     address_int = int(address, 16) + sum([int(digit) for digit in str(int(address, 16))])
     address = hex(address_int)
     address_sha = sha256(address.encode("utf-8")).hexdigest()
+    left_sha = sha256(address[:len(address) // 2].encode("utf-8")).hexdigest()
+    right_sha = sha256(address[len(address) // 2:].encode("utf-8")).hexdigest()
 
-    adj_index1 = int(address, 16) % len(adjectives)
-    adj_index2 = int(address_sha, 16) % len(adjectives)
-    noun_index = int(address_sha, 16) % len(personal_nouns)
+    adj_index1 = int(address_sha, 16) % len(adjectives)
+    adj_index2 = int(left_sha, 16) % len(adjectives)
+    noun_index = int(right_sha, 16) % len(personal_nouns)
     return get_name(adj_index1, adj_index2, noun_index)
 
 
