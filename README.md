@@ -17,13 +17,16 @@ Generate name using Ethereum address:
 ./namify --address {address}
 ```
 
+Rough calculation of the collision chance:
+```commandline
+./namify --collisions
+```
+
 ## Misc
 
 This tool provides constant names per address as long as dictionaries stay the same.
 
-The names are *not unique* and there might be collisions. To minimize the chance of collision, each word selected differently.
-- Adjective based on the address itself
-- Noun based on the sha256(address)
+The names are *not unique* and there might be collisions. E.g. `{adj1} {adj2} {noun}` has ~0.0005% chance of collision. 
 
 It's possible to use it on-chain by additionally checking the given name for uniqueness 
 and optionally adding a numeric prefix like `{name}-{i}` where `i` is the name count already used in the contract.   
