@@ -97,7 +97,7 @@ if __name__ == '__main__':
     parser.add_argument('--generate', type=int, help='generate random phrases')
     parser.add_argument('--address', type=str, help='generate phrase from address')
     parser.add_argument('--collisions', action=argparse.BooleanOptionalAction, help='calculate collisions')
-    parser.add_argument('--templafte',
+    parser.add_argument('--template',
                         type=str,
                         help='name template. Possible words are: adj1, adj2, noun',
                         default=DEFAULT_TEMPLATE

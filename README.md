@@ -29,10 +29,10 @@ python3 ./namify.py --collisions
 Set a custom string template:
 ```bash
 # default template
-python3 ./namify.py --generate 10 --template "{adj1}-{adj2}-{noun}"
+python3 ./namify.py --generate 10 --template="{adj1}-{adj2}-{noun}"
 
 # 2-words template
-python3 ./namify.py --generate 10 --template "{adj1}-{noun}"
+python3 ./namify.py --generate 10 --template="{adj1}-{noun}"
 ```
 ## Misc
 
