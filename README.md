@@ -8,20 +8,28 @@ Based on [corpora](https://github.com/dariusk/corpora) collections.
 ## Usage
 
 Generate {num} random names to play with variants:
-```commandline
-./namify.py --generate {num}
+```bash
+python3 ./namify.py --generate {num}
 ```
 
 Generate name using Ethereum address:
-```commandline
-./namify --address {address}
+```bash
+python3 ./namify.py --address {address}
 ```
 
 Rough calculation of the collision chance:
-```commandline
-./namify --collisions
+```bash
+python3 ./namify.py --collisions
 ```
 
+Set a custom string template:
+```bash
+# default template
+python3 ./namify.py --generate 10 --template "{adj1}-{adj2}-{noun}"
+
+# 2-words template
+python3 ./namify.py --generate 10 --template "{adj1}-{noun}"
+```
 ## Misc
 
 This tool provides constant names per address as long as dictionaries stay the same.

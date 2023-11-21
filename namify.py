@@ -3,8 +3,11 @@
 import json
 import random
 import argparse
+import string
 from hashlib import sha256
 
+
+DEFAULT_TEMPLATE = "{adj1}-{adj2}-{noun}"
 
 with open("corpora/data/words/adjs.json") as json_file:
     adjectives = json.load(json_file).get("adjs")
@@ -25,8 +28,22 @@ with open("corpora/data/words/personal_nouns.json") as json_file:
 #     nouns = json.load(json_file).get("nouns")
 
 
+class SoftFormatter(string.Formatter):
+    def get_value(self, key, args, kwargs):
+        try:
+            return super(SoftFormatter, self).get_value(key, args, kwargs)
+        except KeyError:
+            return '{' + key + '}'
+
+
+f = SoftFormatter()
+
+
 def get_name(adj1, adj2, noun):
-    return f"{adjectives[adj1]} {adjectives[adj2]} {personal_nouns[noun]}".replace(" ", "-")
+    return f.format(getattr(args, "template", DEFAULT_TEMPLATE),
+                    adj1=adjectives[adj1].replace(" ", "-"),
+                    adj2=adjectives[adj2].replace(" ", "-"),
+                    noun=personal_nouns[noun].replace(" ", "-"))
 
 
 def generate(num):
@@ -73,11 +90,18 @@ def collisions():
     print("Collision chance", f"{sum(chances) / len(chances) * 100:f}%")
 
 
+args = None
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--generate', type=int, help='generate random phrases')
     parser.add_argument('--address', type=str, help='generate phrase from address')
     parser.add_argument('--collisions', action=argparse.BooleanOptionalAction, help='calculate collisions')
+    parser.add_argument('--templafte',
+                        type=str,
+                        help='name template. Possible words are: adj1, adj2, noun',
+                        default=DEFAULT_TEMPLATE
+                        )
     args = parser.parse_args()
     if args.generate:
         print(f"{args.generate} random phrases:")
