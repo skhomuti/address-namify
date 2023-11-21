@@ -6,6 +6,10 @@ This simple tool allows you to create a name for an Ethereum address.
 Based on [corpora](https://github.com/dariusk/corpora) collections.
 
 ## Usage
+First of all, make sure that submodules are initialized:
+```bash
+git submodule update --init --recursive
+```
 
 Generate {num} random names to play with variants:
 ```bash
